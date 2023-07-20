@@ -1,7 +1,7 @@
 import { GameBoard } from "../gameboard";
 import { Ship } from "../ship";
 
-const expected = [];
+let expected = [];
 
 beforeEach(() => {
   expected = [
@@ -21,14 +21,14 @@ beforeEach(() => {
 test("initialize the game board", () => {
   const gameBoard = new GameBoard();
 
-  expect(gameBoard.board).toBe(expected);
+  expect(gameBoard.board).toEqual(expected);
 });
 
 test("place a carrier ship horizontally", () => {
   const gameBoard = new GameBoard();
   const carrier = new Ship("carrier");
 
-  gameBoard.placeShip(1, 2, carrier, true); // row, colum, ship, isHorizontal
+  gameBoard.placeShip(1, 2, "carrier", true); // row, colum, ship, isHorizontal
 
   expected[1][2] = carrier;
   expected[1][3] = carrier;
@@ -36,14 +36,14 @@ test("place a carrier ship horizontally", () => {
   expected[1][5] = carrier;
   expected[1][6] = carrier;
 
-  expect(gameBoard.board).toBe(expected);
+  expect(gameBoard.board).toEqual(expected);
 });
 
 test("place a carrier ship vertically", () => {
   const gameBoard = new GameBoard();
   const carrier = new Ship("carrier");
 
-  gameBoard.placeShip(1, 2, carrier, false); // row, colum, ship, isHorizontal
+  gameBoard.placeShip(1, 2, "carrier", false); // row, colum, ship, isHorizontal
 
   expected[1][2] = carrier;
   expected[2][2] = carrier;
@@ -51,14 +51,14 @@ test("place a carrier ship vertically", () => {
   expected[4][2] = carrier;
   expected[5][2] = carrier;
 
-  expect(gameBoard.board).toBe(expected);
+  expect(gameBoard.board).toEqual(expected);
 });
 
 test("no hit a ship and test no game over", () => {
   const gameBoard = new GameBoard();
   const carrier = new Ship("carrier");
 
-  gameBoard.placeShip(1, 2, carrier, true); // row, colum, ship, isHorizontal
+  gameBoard.placeShip(1, 2, "carrier", true); // row, colum, ship, isHorizontal
 
   gameBoard.receiveAttack(2, 2); // row, colum
 
@@ -69,15 +69,16 @@ test("no hit a ship and test no game over", () => {
   expected[1][6] = carrier;
   expected[2][2] = -1;
 
-  expect(gameBoard.board).toBe(expected);
+  expect(gameBoard.board).toEqual(expected);
   expect(gameBoard.isGameOver()).toBe(false);
 });
 
-test("hit a carrier ship once and test no game over", () => {
+test("hit once a carrier ship once and test no game over", () => {
   const gameBoard = new GameBoard();
   const carrier = new Ship("carrier");
 
-  gameBoard.placeShip(1, 2, carrier, true); // row, colum, ship, isHorizontal
+  gameBoard.placeShip(1, 2, "carrier", true); // row, colum, ship, isHorizontal
+  carrier.hit();
 
   gameBoard.receiveAttack(1, 2); // row, colum
 
@@ -87,14 +88,34 @@ test("hit a carrier ship once and test no game over", () => {
   expected[1][5] = carrier;
   expected[1][6] = carrier;
 
-  expect(gameBoard.board).toBe(expected);
+  expect(gameBoard.board).toEqual(expected);
+});
+
+test("hit twice a carrier ship once and test no game over", () => {
+  const gameBoard = new GameBoard();
+  const carrier = new Ship("carrier");
+
+  gameBoard.placeShip(1, 2, "carrier", true); // row, colum, ship, isHorizontal
+  carrier.hit();
+  carrier.hit();
+
+  gameBoard.receiveAttack(1, 2); // row, colum
+  gameBoard.receiveAttack(1, 3); // row, colum
+
+  expected[1][2] = 1;
+  expected[1][3] = 1;
+  expected[1][4] = carrier;
+  expected[1][5] = carrier;
+  expected[1][6] = carrier;
+
+  expect(gameBoard.board).toEqual(expected);
 });
 
 test("test game over", () => {
   const gameBoard = new GameBoard();
   const carrier = new Ship("carrier");
 
-  gameBoard.placeShip(1, 2, carrier, true); // row, colum, ship, isHorizontal
+  gameBoard.placeShip(1, 2, "carrier", true); // row, colum, ship, isHorizontal
 
   gameBoard.receiveAttack(1, 2); // row, colum
   gameBoard.receiveAttack(1, 3);
@@ -108,6 +129,6 @@ test("test game over", () => {
   expected[1][5] = 1;
   expected[1][6] = 1;
 
-  expect(gameBoard.board).toBe(expected);
+  expect(gameBoard.board).toEqual(expected);
   expect(gameBoard.isGameOver()).toBe(true);
 });
