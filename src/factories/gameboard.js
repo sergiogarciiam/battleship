@@ -27,8 +27,10 @@ export class GameBoard {
     if (typeof target === "object") {
       target.hit();
       this.board[row][colum] = 1;
+      return true;
     } else if (target === 0) {
       this.board[row][colum] = -1;
+      return false;
     }
   }
 

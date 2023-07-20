@@ -7,7 +7,7 @@ beforeEach(() => {
   expected = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -131,4 +131,20 @@ test("test game over", () => {
 
   expect(gameBoard.board).toEqual(expected);
   expect(gameBoard.isGameOver()).toBe(true);
+});
+
+test("is a right hit", () => {
+  const gameBoard = new GameBoard();
+
+  gameBoard.placeShip(1, 2, "carrier", true); // row, colum, ship, isHorizontal
+
+  expect(gameBoard.receiveAttack(1, 2)).toBe(true);
+});
+
+test("isn't a right hit", () => {
+  const gameBoard = new GameBoard();
+
+  gameBoard.placeShip(1, 2, "carrier", true); // row, colum, ship, isHorizontal
+
+  expect(gameBoard.receiveAttack(2, 2)).toBe(false);
 });
