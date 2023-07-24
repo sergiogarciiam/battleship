@@ -5,31 +5,31 @@ export class GameBoard {
     this.board = new Array(10).fill(0).map(() => new Array(10).fill(0));
   }
 
-  placeShip(row, colum, shipType, isHorizontal) {
+  placeShip(row, column, shipType, isHorizontal) {
     const ship = new Ship(shipType);
 
     if (isHorizontal) {
-      const max = colum + ship.length;
-      for (let index = colum; index < max; index++) {
+      const max = column + ship.length;
+      for (let index = column; index < max; index++) {
         this.board[row][index] = ship;
       }
     } else {
       const max = row + ship.length;
       for (let index = row; index < max; index++) {
-        this.board[index][colum] = ship;
+        this.board[index][column] = ship;
       }
     }
   }
 
-  receiveAttack(row, colum) {
-    let target = this.board[row][colum];
+  receiveAttack(row, column) {
+    let target = this.board[row][column];
 
     if (typeof target === "object") {
       target.hit();
-      this.board[row][colum] = 1;
+      this.board[row][column] = 1;
       return true;
     } else if (target === 0) {
-      this.board[row][colum] = -1;
+      this.board[row][column] = -1;
       return false;
     }
   }
