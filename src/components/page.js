@@ -7,7 +7,7 @@ export const pageComponent = (() => {
     const page = document.createElement("div");
     page.classList.add("page");
 
-    page.appendChild(mainMenu.setUp());
+    page.appendChild(mainMenu.setUp(player1, player2));
     //page.appendChild(gameBoardComponent.setUp(player1));
     //page.appendChild(gameBoardComponent.setUp(player2));
     page.appendChild(finishMenuComponent.setUp());

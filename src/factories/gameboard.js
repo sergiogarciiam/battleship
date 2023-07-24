@@ -6,19 +6,29 @@ export class GameBoard {
   }
 
   placeShip(row, column, shipType, isHorizontal) {
+    let temporalBoard = this.board;
     const ship = new Ship(shipType);
 
     if (isHorizontal) {
       const max = column + ship.length;
+      if (max > 10) return false;
+
       for (let index = column; index < max; index++) {
-        this.board[row][index] = ship;
+        if (typeof temporalBoard[row][index] === "object") return false;
+        temporalBoard[row][index] = ship;
       }
     } else {
       const max = row + ship.length;
+      if (max > 10) return false;
+
       for (let index = row; index < max; index++) {
-        this.board[index][column] = ship;
+        if (typeof temporalBoard[index][column] === "object") return false;
+        temporalBoard[index][column] = ship;
       }
     }
+
+    this.board = temporalBoard;
+    return true;
   }
 
   receiveAttack(row, column) {

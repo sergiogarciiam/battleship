@@ -12,9 +12,6 @@ export const GameLoop = (() => {
     const gameBoard1 = new GameBoard();
     const gameBoard2 = new GameBoard();
 
-    gameBoard1.placeShip(0, 0, "carrier", true);
-    gameBoard2.placeShip(1, 0, "carrier", true);
-
     player1 = new Player(0, "human", gameBoard1);
     player2 = new Player(1, "bot", gameBoard2);
 
@@ -23,15 +20,6 @@ export const GameLoop = (() => {
   };
 
   const setUpNewGame = () => {
-    const gameBoard1 = new GameBoard();
-    const gameBoard2 = new GameBoard();
-
-    gameBoard1.placeShip(0, 0, "carrier", true);
-    gameBoard2.placeShip(1, 0, "carrier", true);
-
-    player1 = new Player(0, "human", gameBoard1);
-    player2 = new Player(1, "bot", gameBoard2);
-
     cleanNode(document.body);
     document.body.appendChild(pageComponent.setUp(player1, player2));
   };

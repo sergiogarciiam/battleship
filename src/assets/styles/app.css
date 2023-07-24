@@ -59,16 +59,22 @@
   display: none;
 }
 
-.carrier {
+.ship-position {
   position: absolute;
   display: none;
-
-  width: 259px;
-  height: 50px;
-
   background-color: blue;
 }
 
-.cell:hover > .carrier {
+.carrier.horizontal {
+  width: 259px;
+  height: 50px;
+}
+
+.carrier.vertical {
+  height: 259px;
+  width: 50px;
+}
+
+.cell:hover > .ship-position {
   display: inline;
 }
