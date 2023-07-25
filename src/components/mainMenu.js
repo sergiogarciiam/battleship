@@ -15,6 +15,7 @@ export const mainMenu = (() => {
     multiPlayerButton.textContent = "Human vs Human";
 
     singlePlayerButton.addEventListener("click", startSingleGame);
+    multiPlayerButton.addEventListener("click", startMultiplayerGame);
 
     buttonsContainer.appendChild(singlePlayerButton);
     buttonsContainer.appendChild(multiPlayerButton);
@@ -26,7 +27,13 @@ export const mainMenu = (() => {
   };
 
   function startSingleGame() {
-    GameLoop.setUpShipChoose();
+    GameLoop.setUpPlayers("human", "bot");
+    GameLoop.setUpShipsChooseMenu();
+  }
+
+  function startMultiplayerGame() {
+    GameLoop.setUpPlayers("human", "human");
+    GameLoop.setUpShipsChooseMenu();
   }
 
   return { setUp };

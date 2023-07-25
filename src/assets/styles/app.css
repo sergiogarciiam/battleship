@@ -4,7 +4,7 @@
   justify-content: center;
   gap: 200px;
 }
-.ships-choose-container__gameBoard,
+.ships-choose-menu__gameBoard,
 .gameBoard {
   position: relative;
   display: flex;

@@ -27,7 +27,7 @@ export const finishMenuComponent = (() => {
 
   function playAgain(event) {
     event.target.parentNode.classList.add("hide");
-    GameLoop.setUpShipChoose();
+    GameLoop.setUpShipsChooseMenu();
   }
 
   function goBackMainMenu(event) {

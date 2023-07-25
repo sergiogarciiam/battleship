@@ -1,22 +1,22 @@
 import { GameLoop } from "../controllers/gameLoop";
 
-export const shipsChooseContainer = (() => {
+export const shipsChooseMenu = (() => {
   let myPlayer = null;
   let actualShip = "";
   let orientation = "";
 
   const setUp = (player) => {
-    const shipsChooseContainer = document.createElement("div");
-    shipsChooseContainer.classList.add("ships-choose-container");
+    const shipsChooseMenu = document.createElement("div");
+    shipsChooseMenu.classList.add("ships-choose-menu");
 
     myPlayer = player;
     actualShip = "carrier";
     orientation = "horizontal";
 
-    shipsChooseContainer.appendChild(createButton());
-    shipsChooseContainer.appendChild(createGameBoard());
+    shipsChooseMenu.appendChild(createButton());
+    shipsChooseMenu.appendChild(createGameBoard());
 
-    return shipsChooseContainer;
+    return shipsChooseMenu;
   };
 
   function createButton() {
@@ -29,7 +29,7 @@ export const shipsChooseContainer = (() => {
   function createGameBoard() {
     const gameBoard = document.createElement("div");
     const myBoard = myPlayer.board.board;
-    gameBoard.classList.add("ships-choose-container__gameBoard");
+    gameBoard.classList.add("ships-choose-menu__gameBoard");
 
     let isShip = false;
     for (let row = 0; row < 10; row++) {
@@ -67,9 +67,7 @@ export const shipsChooseContainer = (() => {
   }
 
   function addShip(e) {
-    const shipsChooseContainer = document.querySelector(
-      ".ships-choose-container"
-    );
+    const shipsChooseMenu = document.querySelector(".ships-choose-menu");
     const row = +e.target.parentNode.dataset.row;
     const column = +e.target.parentNode.dataset.column;
 
@@ -94,12 +92,12 @@ export const shipsChooseContainer = (() => {
         : "";
 
     if (actualShip === "") {
-      GameLoop.setUpGameBoards();
+      GameLoop.setUpShipsChooseMenu(myPlayer.number + 1);
       return;
     }
 
-    shipsChooseContainer.childNodes[1].remove();
-    shipsChooseContainer.appendChild(createGameBoard());
+    shipsChooseMenu.childNodes[1].remove();
+    shipsChooseMenu.appendChild(createGameBoard());
   }
 
   function rotateShip() {

@@ -3,69 +3,73 @@ import { GameBoard } from "../factories/gameboard";
 
 import { pageComponent } from "../components/page";
 import { gameBoardComponent } from "../components/gameboard";
-import { shipsChooseContainer } from "../components/shipsChoose";
+import { shipsChooseMenu } from "../components/shipsChooseMenu";
 
 export const GameLoop = (() => {
-  let player1 = null;
-  let player2 = null;
+  let players = [];
 
   const setUpMainMenu = () => {
     cleanNode(document.body);
     document.body.appendChild(pageComponent.setUp());
   };
 
-  const setUpShipChoose = () => {
-    const page = document.querySelector(".page");
-    const mainMenu = document.querySelector(".main-menu");
-    const gameBoards = document.querySelectorAll(".gameBoard");
-
+  const setUpPlayers = (typePlayer1, typePlayer2) => {
     const gameBoard1 = new GameBoard();
     const gameBoard2 = new GameBoard();
 
-    player1 = new Player(0, "human", gameBoard1);
-    player2 = new Player(1, "bot", gameBoard2);
-    player2.board.generateRandomBoard();
+    players = [];
 
-    if (gameBoards !== null)
-      gameBoards.forEach((gameBoard) => gameBoard.remove());
+    players.push(new Player(0, typePlayer1, gameBoard1));
+    players.push(new Player(1, typePlayer2, gameBoard2));
+  };
 
-    if (mainMenu !== null) mainMenu.remove();
-    page.appendChild(shipsChooseContainer.setUp(player1));
+  const setUpShipsChooseMenu = (number = 0) => {
+    const page = document.querySelector(".page");
+    const player = players[number];
+
+    if (number === 2) setUpGameBoards();
+    else if (player.type === "human") {
+      cleanPage();
+      page.appendChild(shipsChooseMenu.setUp(player));
+    } else {
+      player.board.generateRandomBoard();
+      setUpGameBoards();
+    }
   };
 
   const setUpGameBoards = () => {
     const page = document.querySelector(".page");
-    const shipsChoose = document.querySelector(".ships-choose-container");
+    const shipsChoose = document.querySelector(".ships-choose-menu");
 
     shipsChoose.remove();
 
-    page.appendChild(gameBoardComponent.setUp(player1));
-    page.appendChild(gameBoardComponent.setUp(player2));
+    page.appendChild(gameBoardComponent.setUp(players[0]));
+    page.appendChild(gameBoardComponent.setUp(players[1]));
   };
 
   const attack = (row, column) => {
     gameBoardComponent.changeCellColor(
-      player2.board.receiveAttack(row, column),
-      player2.number,
+      players[1].board.receiveAttack(row, column),
+      players[1].number,
       row,
       column
     );
 
-    if (player2.board.isGameOver()) showFinishMenu();
+    if (players[1].board.isGameOver()) showFinishMenu();
     else attackBot();
   };
 
   function attackBot() {
-    const aiCoord = player2.getCoordinates(player1.board.board);
+    const aiCoord = players[1].getCoordinates(players[0].board.board);
 
     gameBoardComponent.changeCellColor(
-      player1.board.receiveAttack(aiCoord[0], aiCoord[1]),
-      player1.number,
+      players[0].board.receiveAttack(aiCoord[0], aiCoord[1]),
+      players[0].number,
       aiCoord[0],
       aiCoord[1]
     );
 
-    if (player1.board.isGameOver()) showFinishMenu();
+    if (players[0].board.isGameOver()) showFinishMenu();
   }
 
   function showFinishMenu() {
@@ -82,5 +86,23 @@ export const GameLoop = (() => {
     }
   }
 
-  return { setUpMainMenu, setUpShipChoose, setUpGameBoards, attack };
+  function cleanPage() {
+    const mainMenu = document.querySelector(".main-menu");
+    const gameBoards = document.querySelectorAll(".gameBoard");
+    const shipsChoose = document.querySelector(".ships-choose-menu");
+
+    if (shipsChoose !== null) shipsChoose.remove();
+    if (gameBoards !== null)
+      gameBoards.forEach((gameBoard) => gameBoard.remove());
+
+    if (mainMenu !== null) mainMenu.remove();
+  }
+
+  return {
+    setUpMainMenu,
+    setUpPlayers,
+    setUpShipsChooseMenu,
+    setUpGameBoards,
+    attack,
+  };
 })();
