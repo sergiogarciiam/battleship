@@ -5,12 +5,12 @@ export class Player {
     this.board = board;
   }
 
-  getCoordinates(enemyBoard) {
+  getCoordinates(board) {
     let boardPossibleHits = [];
 
     for (let row = 0; row < 10; row++) {
       for (let column = 0; column < 10; column++) {
-        if (enemyBoard[row][column] !== 1 && enemyBoard[row][column] !== -1) {
+        if (board[row][column] !== 1 && board[row][column] !== -1) {
           boardPossibleHits.push([row, column]);
         }
       }
@@ -18,8 +18,10 @@ export class Player {
 
     let randomOption = Math.floor(Math.random() * boardPossibleHits.length);
 
-    console.log(boardPossibleHits[randomOption]);
-
     return boardPossibleHits[randomOption];
+  }
+
+  getHorizontal() {
+    return Math.random() < 0.5;
   }
 }

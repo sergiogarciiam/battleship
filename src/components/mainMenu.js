@@ -1,3 +1,5 @@
+import { GameLoop } from "../controllers/gameLoop";
+
 export const mainMenu = (() => {
   let myPlayer1 = null;
   let myPlayer2 = null;
@@ -26,18 +28,22 @@ export const mainMenu = (() => {
 
   function createGameBoard() {
     const gameBoard = document.createElement("div");
+    const myBoard = myPlayer1.board.board;
     gameBoard.classList.add("main-menu__gameBoard");
 
+    let isShip = false;
     for (let row = 0; row < 10; row++) {
       for (let column = 0; column < 10; column++) {
-        gameBoard.appendChild(createCell(row, column));
+        if (typeof myBoard[row][column] == "object") isShip = true;
+        gameBoard.appendChild(createCell(row, column, isShip));
+        isShip = false;
       }
     }
 
     return gameBoard;
   }
 
-  function createCell(row, column) {
+  function createCell(row, column, isShip) {
     const cell = document.createElement("div");
     const shipPosition = document.createElement("div");
 
@@ -53,10 +59,14 @@ export const mainMenu = (() => {
     cell.addEventListener("click", addShip);
 
     cell.appendChild(shipPosition);
+
+    if (isShip) cell.classList.add("ship");
+
     return cell;
   }
 
   function addShip(e) {
+    const mainMenu = document.querySelector(".main-menu");
     const row = +e.target.parentNode.dataset.row;
     const column = +e.target.parentNode.dataset.column;
 
@@ -66,37 +76,28 @@ export const mainMenu = (() => {
       actualShip,
       isHorizontal
     );
+    console.log(isPlaced);
 
-    console.log(myPlayer1.board.board);
+    if (!isPlaced) return;
 
-    if (isPlaced) placeShip(row, column);
+    actualShip =
+      actualShip === "carrier"
+        ? "battleship"
+        : actualShip === "battleship"
+        ? "cruiser"
+        : actualShip === "cruiser"
+        ? "submarine"
+        : actualShip === "submarine"
+        ? "destroyer"
+        : "";
 
-    // if last --> setUpNewGame()
-  }
-
-  function placeShip(row, column) {
-    const board = document.querySelector(".main-menu__gameBoard");
-    let cell = null;
-
-    if (isHorizontal) {
-      const max = column + 5;
-
-      for (let index = column; index < max; index++) {
-        cell = board.querySelector(
-          `[data-row="${row}"][data-column="${index}"]`
-        );
-        cell.classList.add("ship");
-      }
-    } else {
-      const max = row + 5;
-
-      for (let index = row; index < max; index++) {
-        cell = board.querySelector(
-          `[data-row="${index}"][data-column="${column}"]`
-        );
-        cell.classList.add("ship");
-      }
+    if (actualShip === "") {
+      GameLoop.setUpNewGame();
+      return;
     }
+
+    mainMenu.childNodes[1].remove();
+    mainMenu.appendChild(createGameBoard());
   }
 
   function rotateShip() {

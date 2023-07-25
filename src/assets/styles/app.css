@@ -65,16 +65,64 @@
   background-color: blue;
 }
 
+.cell:hover > .ship-position {
+  display: inline;
+}
+
+.horizontal {
+  height: 50px;
+}
+
+.vertical {
+  width: 50px;
+}
+
 .carrier.horizontal {
   width: 259px;
-  height: 50px;
+  color: rgb(166, 87, 87);
 }
 
 .carrier.vertical {
   height: 259px;
-  width: 50px;
+  color: rgb(166, 87, 87);
 }
 
-.cell:hover > .ship-position {
-  display: inline;
+.battleship.horizontal {
+  width: 209px;
+  color: rgb(166, 148, 87);
+}
+
+.battleship.vertical {
+  height: 209px;
+  color: rgb(166, 148, 87);
+}
+
+.cruiser.horizontal {
+  width: 159px;
+  color: rgb(115, 166, 87);
+}
+
+.cruiser.vertical {
+  height: 159px;
+  color: rgb(115, 166, 87);
+}
+
+.submarine.horizontal {
+  width: 159px;
+  color: rgb(87, 152, 166);
+}
+
+.submarine.vertical {
+  height: 159px;
+  color: rgb(87, 152, 166);
+}
+
+.destroyer.horizontal {
+  width: 109px;
+  color: rgb(132, 87, 166);
+}
+
+.destroyer.vertical {
+  height: 109px;
+  color: rgb(132, 87, 166);
 }

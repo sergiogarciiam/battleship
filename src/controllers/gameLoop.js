@@ -15,13 +15,17 @@ export const GameLoop = (() => {
     player1 = new Player(0, "human", gameBoard1);
     player2 = new Player(1, "bot", gameBoard2);
 
+    player2.board.generateRandomBoard();
+
     cleanNode(document.body);
     document.body.appendChild(pageComponent.setUp(player1, player2));
   };
 
   const setUpNewGame = () => {
-    cleanNode(document.body);
-    document.body.appendChild(pageComponent.setUp(player1, player2));
+    const page = document.querySelector(".page");
+    cleanNode(page);
+    page.appendChild(gameBoardComponent.setUp(player1));
+    page.appendChild(gameBoardComponent.setUp(player2));
   };
 
   const attack = (row, column) => {
