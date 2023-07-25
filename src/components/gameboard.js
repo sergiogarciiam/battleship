@@ -3,8 +3,10 @@ import { blockerComponent } from "./blocker";
 
 export const gameBoardComponent = (() => {
   let myBoard = null;
+  let myPlayer = null;
 
   const setUp = (player) => {
+    myPlayer = player;
     myBoard = player.board;
 
     const gameBoard = document.createElement("div");
@@ -20,7 +22,7 @@ export const gameBoardComponent = (() => {
       }
     }
 
-    gameBoard.appendChild(blockerComponent.setUp(player.type === "bot"));
+    gameBoard.appendChild(blockerComponent.setUp(player.number === 1));
 
     return gameBoard;
   };
@@ -33,14 +35,22 @@ export const gameBoardComponent = (() => {
 
     cell.addEventListener("click", attack);
 
-    if (isShip) cell.classList.add("ship");
-
+    if (myPlayer.type !== "bot" && isShip && myPlayer.number === 1) {
+      cell.classList.add("ship");
+    } else if (myPlayer.type !== "bot" && isShip && myPlayer.number === 0) {
+      cell.classList.add("ship");
+      cell.classList.add("color");
+    }
     return cell;
   }
 
   function attack(event) {
     const target = event.target;
-    GameLoop.attack(target.dataset.row, target.dataset.column);
+    GameLoop.attack(
+      target.parentNode.dataset.player,
+      target.dataset.row,
+      target.dataset.column
+    );
   }
 
   const changeCellColor = (isHit, number, row, column) => {

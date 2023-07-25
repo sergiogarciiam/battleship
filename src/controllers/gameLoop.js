@@ -4,6 +4,7 @@ import { GameBoard } from "../factories/gameboard";
 import { pageComponent } from "../components/page";
 import { gameBoardComponent } from "../components/gameboard";
 import { shipsChooseMenu } from "../components/shipsChooseMenu";
+import { passDeviceMenu } from "../components/passDeviceMenu";
 
 export const GameLoop = (() => {
   let players = [];
@@ -29,6 +30,9 @@ export const GameLoop = (() => {
 
     if (number === 2) setUpGameBoards();
     else if (player.type === "human") {
+      const passDeviceMenu = document.querySelector(".pass-device-menu");
+      passDeviceMenu.classList.remove("hide");
+
       cleanPage();
       page.appendChild(shipsChooseMenu.setUp(player));
     } else {
@@ -47,16 +51,27 @@ export const GameLoop = (() => {
     page.appendChild(gameBoardComponent.setUp(players[1]));
   };
 
-  const attack = (row, column) => {
+  const attack = (enemy, row, column) => {
     gameBoardComponent.changeCellColor(
-      players[1].board.receiveAttack(row, column),
-      players[1].number,
+      players[enemy].board.receiveAttack(row, column),
+      players[enemy].number,
       row,
       column
     );
 
-    if (players[1].board.isGameOver()) showFinishMenu();
-    else attackBot();
+    if (players[enemy].board.isGameOver()) showFinishMenu();
+
+    if (players[1].type === "human") {
+      const passDeviceMenu = document.querySelector(".pass-device-menu");
+      const blockers = document.querySelectorAll(".blocker");
+      const ships = document.querySelectorAll(".ship");
+
+      passDeviceMenu.classList.remove("hide");
+      blockers.forEach((blocker) => blocker.classList.toggle("hide"));
+      ships.forEach((ship) => ship.classList.toggle("color"));
+    } else {
+      attackBot();
+    }
   };
 
   function attackBot() {

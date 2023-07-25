@@ -61,7 +61,10 @@ export const shipsChooseMenu = (() => {
 
     cell.appendChild(shipPosition);
 
-    if (isShip) cell.classList.add("ship");
+    if (isShip) {
+      cell.classList.add("ship");
+      cell.classList.add("color");
+    }
 
     return cell;
   }
