@@ -3,29 +3,41 @@ import { GameBoard } from "../factories/gameboard";
 
 import { pageComponent } from "../components/page";
 import { gameBoardComponent } from "../components/gameboard";
+import { shipsChooseContainer } from "../components/shipsChoose";
 
 export const GameLoop = (() => {
   let player1 = null;
   let player2 = null;
 
   const setUpMainMenu = () => {
+    cleanNode(document.body);
+    document.body.appendChild(pageComponent.setUp());
+  };
+
+  const setUpShipChoose = () => {
+    const page = document.querySelector(".page");
+    const mainMenu = document.querySelector(".main-menu");
+    const gameBoards = document.querySelectorAll(".gameBoard");
+
     const gameBoard1 = new GameBoard();
     const gameBoard2 = new GameBoard();
 
     player1 = new Player(0, "human", gameBoard1);
     player2 = new Player(1, "bot", gameBoard2);
-
     player2.board.generateRandomBoard();
 
-    cleanNode(document.body);
-    document.body.appendChild(pageComponent.setUp(player1, player2));
+    if (gameBoards !== null)
+      gameBoards.forEach((gameBoard) => gameBoard.remove());
+
+    if (mainMenu !== null) mainMenu.remove();
+    page.appendChild(shipsChooseContainer.setUp(player1));
   };
 
-  const setUpNewGame = () => {
+  const setUpGameBoards = () => {
     const page = document.querySelector(".page");
-    const mainMenu = document.querySelector(".main-menu");
+    const shipsChoose = document.querySelector(".ships-choose-container");
 
-    mainMenu.remove("hide");
+    shipsChoose.remove();
 
     page.appendChild(gameBoardComponent.setUp(player1));
     page.appendChild(gameBoardComponent.setUp(player2));
@@ -70,5 +82,5 @@ export const GameLoop = (() => {
     }
   }
 
-  return { setUpMainMenu, setUpNewGame, attack };
+  return { setUpMainMenu, setUpShipChoose, setUpGameBoards, attack };
 })();
