@@ -48,6 +48,26 @@ export class GameBoard {
     return this.board.flat().every((cell) => typeof cell !== "object");
   }
 
+  generateRandomBoard() {
+    let typesShips = [
+      "carrier",
+      "battleship",
+      "cruiser",
+      "submarine",
+      "destroyer",
+    ];
+
+    for (const shipType of typesShips) {
+      let isPlaced = false;
+      while (!isPlaced) {
+        const row = this.getRandomInt(10);
+        const column = this.getRandomInt(10);
+        const isHorizontal = this.getRandomDirection();
+        isPlaced = this.placeShip(row, column, shipType, isHorizontal);
+      }
+    }
+  }
+
   deepCopyBoard() {
     const numRows = this.board.length;
     const numCols = this.board[0].length;
@@ -72,25 +92,5 @@ export class GameBoard {
 
   getRandomDirection() {
     return Math.random() < 0.5; // Horizontal: true, Vertical: false
-  }
-
-  generateRandomBoard() {
-    let typesShips = [
-      "carrier",
-      "battleship",
-      "cruiser",
-      "submarine",
-      "destroyer",
-    ];
-
-    for (const shipType of typesShips) {
-      let isPlaced = false;
-      while (!isPlaced) {
-        const row = this.getRandomInt(10);
-        const column = this.getRandomInt(10);
-        const isHorizontal = this.getRandomDirection();
-        isPlaced = this.placeShip(row, column, shipType, isHorizontal);
-      }
-    }
   }
 }

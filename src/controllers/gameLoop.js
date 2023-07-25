@@ -23,7 +23,10 @@ export const GameLoop = (() => {
 
   const setUpNewGame = () => {
     const page = document.querySelector(".page");
-    cleanNode(page);
+    const mainMenu = document.querySelector(".main-menu");
+
+    mainMenu.remove("hide");
+
     page.appendChild(gameBoardComponent.setUp(player1));
     page.appendChild(gameBoardComponent.setUp(player2));
   };

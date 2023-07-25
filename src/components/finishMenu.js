@@ -22,7 +22,7 @@ export const finishMenuComponent = (() => {
 
   function playAgain(event) {
     event.target.parentNode.classList.add("hide");
-    GameLoop.setUpNewGame();
+    GameLoop.setUpMainMenu();
   }
 
   return { setUp };

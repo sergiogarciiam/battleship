@@ -3,8 +3,8 @@ import { GameLoop } from "../controllers/gameLoop";
 export const mainMenu = (() => {
   let myPlayer1 = null;
   let myPlayer2 = null;
-  let actualShip = "carrier";
-  let isHorizontal = true;
+  let actualShip = "";
+  let orientation = "";
 
   const setUp = (player1, player2) => {
     const mainMenu = document.createElement("div");
@@ -12,6 +12,9 @@ export const mainMenu = (() => {
 
     myPlayer1 = player1;
     myPlayer2 = player2;
+
+    actualShip = "carrier";
+    orientation = "horizontal";
 
     mainMenu.appendChild(createButton());
     mainMenu.appendChild(createGameBoard());
@@ -50,7 +53,8 @@ export const mainMenu = (() => {
     cell.classList.add("cell");
 
     shipPosition.classList.add("ship-position");
-    shipPosition.classList.add("horizontal");
+
+    shipPosition.classList.add(orientation);
     shipPosition.classList.add(actualShip);
 
     cell.dataset.row = row;
@@ -74,9 +78,8 @@ export const mainMenu = (() => {
       row,
       column,
       actualShip,
-      isHorizontal
+      orientation === "horizontal"
     );
-    console.log(isPlaced);
 
     if (!isPlaced) return;
 
@@ -107,7 +110,7 @@ export const mainMenu = (() => {
       ship.classList.toggle("horizontal");
     });
 
-    isHorizontal = isHorizontal ? false : true;
+    orientation = orientation === "horizontal" ? "vertical" : "horizontal";
   }
 
   return { setUp };
