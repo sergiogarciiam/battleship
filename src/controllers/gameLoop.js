@@ -12,13 +12,14 @@ export const GameLoop = (() => {
   };
 
   const setUpPlayers = (typePlayer1, typePlayer2) => {
-    const gameBoard1 = new GameBoard();
-    const gameBoard2 = new GameBoard();
-
     players = [];
+    players.push(new Player(0, typePlayer1, new GameBoard(), true));
+    players.push(new Player(1, typePlayer2, new GameBoard(), false));
+  };
 
-    players.push(new Player(0, typePlayer1, gameBoard1, true));
-    players.push(new Player(1, typePlayer2, gameBoard2, false));
+  const resetPlayers = () => {
+    players[0].board = new GameBoard();
+    players[1].board = new GameBoard();
   };
 
   const setUpShipsChooseMenu = (number = 0) => {
@@ -45,7 +46,7 @@ export const GameLoop = (() => {
       column
     );
 
-    if (players[enemy].board.isGameOver()) pageComponent.showFinishMenu();
+    if (players[enemy].board.isGameOver()) endGame();
 
     if (players[1].type === "human") {
       const board = document.querySelector(`[data-player="${enemy}"]`);
@@ -71,12 +72,19 @@ export const GameLoop = (() => {
       aiCoord[1]
     );
 
-    if (players[0].board.isGameOver()) pageComponent.showFinishMenu();
+    if (players[0].board.isGameOver()) endGame();
+  }
+
+  function endGame() {
+    const blockers = document.querySelectorAll(".blocker");
+    blockers.forEach((blocker) => blocker.classList.remove("hide"));
+    pageComponent.showFinishMenu();
   }
 
   return {
     setUp,
     setUpPlayers,
+    resetPlayers,
     setUpShipsChooseMenu,
     attack,
   };

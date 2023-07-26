@@ -1,9 +1,8 @@
 import { GameLoop } from "../controllers/gameLoop";
-import { mainMenu } from "./mainMenu";
 import { pageComponent } from "./page";
 
 export const finishMenuComponent = (() => {
-  const setUp = (player) => {
+  const setUp = () => {
     const finishMenu = document.createElement("div");
     const title = document.createElement("h3");
     const playAgainButton = document.createElement("button");
@@ -28,6 +27,7 @@ export const finishMenuComponent = (() => {
 
   function playAgain(event) {
     event.target.parentNode.classList.add("hide");
+    GameLoop.resetPlayers();
     GameLoop.setUpShipsChooseMenu();
   }
 

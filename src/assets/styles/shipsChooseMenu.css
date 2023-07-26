@@ -1,0 +1,64 @@
+.ships-choose-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
+.ship-position {
+  position: absolute;
+  display: none;
+  background-color: blue;
+}
+
+.cell:hover > .ship-position {
+  display: inline;
+}
+
+.horizontal {
+  height: 50px;
+}
+
+.vertical {
+  width: 50px;
+}
+
+.carrier.horizontal {
+  width: 259px;
+}
+
+.carrier.vertical {
+  height: 259px;
+}
+
+.battleship.horizontal {
+  width: 209px;
+}
+
+.battleship.vertical {
+  height: 209px;
+}
+
+.cruiser.horizontal {
+  width: 159px;
+}
+
+.cruiser.vertical {
+  height: 159px;
+}
+
+.submarine.horizontal {
+  width: 159px;
+}
+
+.submarine.vertical {
+  height: 159px;
+}
+
+.destroyer.horizontal {
+  width: 109px;
+}
+
+.destroyer.vertical {
+  height: 109px;
+}

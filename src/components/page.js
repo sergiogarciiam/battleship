@@ -59,6 +59,8 @@ export const pageComponent = (() => {
     title.textContent = `Player ${playerTurn + 1}: choose one cell`;
 
     main = document.createElement("main");
+    main.classList.add("gameboards-container");
+
     main.appendChild(gameBoardComponent.setUp(players[0]));
     main.appendChild(gameBoardComponent.setUp(players[1]));
 
