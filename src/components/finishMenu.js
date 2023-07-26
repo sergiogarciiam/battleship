@@ -1,5 +1,6 @@
 import { GameLoop } from "../controllers/gameLoop";
 import { mainMenu } from "./mainMenu";
+import { pageComponent } from "./page";
 
 export const finishMenuComponent = (() => {
   const setUp = (player) => {
@@ -32,7 +33,7 @@ export const finishMenuComponent = (() => {
 
   function goBackMainMenu(event) {
     event.target.parentNode.classList.add("hide");
-    GameLoop.setUpMainMenu();
+    pageComponent.showMainMenu();
   }
 
   return { setUp };

@@ -6,7 +6,7 @@ export const shipsChooseMenu = (() => {
   let orientation = "";
 
   const setUp = (player) => {
-    const shipsChooseMenu = document.createElement("div");
+    const shipsChooseMenu = document.createElement("main");
     shipsChooseMenu.classList.add("ships-choose-menu");
 
     myPlayer = player;
@@ -29,7 +29,7 @@ export const shipsChooseMenu = (() => {
   function createGameBoard() {
     const gameBoard = document.createElement("div");
     const myBoard = myPlayer.board.board;
-    gameBoard.classList.add("ships-choose-menu__gameBoard");
+    gameBoard.classList.add("gameBoard");
 
     let isShip = false;
     for (let row = 0; row < 10; row++) {

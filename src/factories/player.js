@@ -1,8 +1,9 @@
 export class Player {
-  constructor(number, type, board) {
+  constructor(number, type, board, isTurn) {
     this.number = number;
     this.type = type;
     this.board = board;
+    this.isTurn = isTurn;
   }
 
   getCoordinates(enemyBoard) {

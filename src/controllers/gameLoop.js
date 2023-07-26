@@ -3,14 +3,11 @@ import { GameBoard } from "../factories/gameboard";
 
 import { pageComponent } from "../components/page";
 import { gameBoardComponent } from "../components/gameboard";
-import { shipsChooseMenu } from "../components/shipsChooseMenu";
-import { passDeviceMenu } from "../components/passDeviceMenu";
 
 export const GameLoop = (() => {
   let players = [];
 
-  const setUpMainMenu = () => {
-    cleanNode(document.body);
+  const setUp = () => {
     document.body.appendChild(pageComponent.setUp());
   };
 
@@ -20,35 +17,24 @@ export const GameLoop = (() => {
 
     players = [];
 
-    players.push(new Player(0, typePlayer1, gameBoard1));
-    players.push(new Player(1, typePlayer2, gameBoard2));
+    players.push(new Player(0, typePlayer1, gameBoard1, true));
+    players.push(new Player(1, typePlayer2, gameBoard2, false));
   };
 
   const setUpShipsChooseMenu = (number = 0) => {
-    const page = document.querySelector(".page");
     const player = players[number];
 
-    if (number === 2) setUpGameBoards();
-    else if (player.type === "human") {
-      const passDeviceMenu = document.querySelector(".pass-device-menu");
-      passDeviceMenu.classList.remove("hide");
+    if (number === 2) {
+      pageComponent.showGameBoards(players);
+      return;
+    }
 
-      cleanPage();
-      page.appendChild(shipsChooseMenu.setUp(player));
+    if (player.type === "human") {
+      pageComponent.showPassDeviceMenu(player);
     } else {
       player.board.generateRandomBoard();
-      setUpGameBoards();
+      pageComponent.showGameBoards(players);
     }
-  };
-
-  const setUpGameBoards = () => {
-    const page = document.querySelector(".page");
-    const shipsChoose = document.querySelector(".ships-choose-menu");
-
-    shipsChoose.remove();
-
-    page.appendChild(gameBoardComponent.setUp(players[0]));
-    page.appendChild(gameBoardComponent.setUp(players[1]));
   };
 
   const attack = (enemy, row, column) => {
@@ -59,16 +45,17 @@ export const GameLoop = (() => {
       column
     );
 
-    if (players[enemy].board.isGameOver()) showFinishMenu();
+    if (players[enemy].board.isGameOver()) pageComponent.showFinishMenu();
 
     if (players[1].type === "human") {
-      const passDeviceMenu = document.querySelector(".pass-device-menu");
-      const blockers = document.querySelectorAll(".blocker");
-      const ships = document.querySelectorAll(".ship");
+      const board = document.querySelector(`[data-player="${enemy}"]`);
+      const blocker = board.querySelector(".blocker");
+      blocker.classList.remove("hide");
 
-      passDeviceMenu.classList.remove("hide");
-      blockers.forEach((blocker) => blocker.classList.toggle("hide"));
-      ships.forEach((ship) => ship.classList.toggle("color"));
+      players[0].isTurn = players[0].isTurn ? false : true;
+      players[1].isTurn = players[1].isTurn ? false : true;
+
+      setTimeout(() => pageComponent.showPassDeviceMenu(players), 800);
     } else {
       attackBot();
     }
@@ -84,40 +71,13 @@ export const GameLoop = (() => {
       aiCoord[1]
     );
 
-    if (players[0].board.isGameOver()) showFinishMenu();
-  }
-
-  function showFinishMenu() {
-    const finishMenu = document.querySelector(".finish-menu");
-    const title = finishMenu.querySelector("h3");
-
-    finishMenu.classList.remove("hide");
-    title.textContent = "Game Over";
-  }
-
-  function cleanNode(node) {
-    while (node.firstChild) {
-      node.removeChild(node.firstChild);
-    }
-  }
-
-  function cleanPage() {
-    const mainMenu = document.querySelector(".main-menu");
-    const gameBoards = document.querySelectorAll(".gameBoard");
-    const shipsChoose = document.querySelector(".ships-choose-menu");
-
-    if (shipsChoose !== null) shipsChoose.remove();
-    if (gameBoards !== null)
-      gameBoards.forEach((gameBoard) => gameBoard.remove());
-
-    if (mainMenu !== null) mainMenu.remove();
+    if (players[0].board.isGameOver()) pageComponent.showFinishMenu();
   }
 
   return {
-    setUpMainMenu,
+    setUp,
     setUpPlayers,
     setUpShipsChooseMenu,
-    setUpGameBoards,
     attack,
   };
 })();

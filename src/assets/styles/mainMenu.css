@@ -1,0 +1,17 @@
+.main-menu {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.main-menu > h1 {
+  font-size: 100px;
+}
+
+.main-menu__buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}

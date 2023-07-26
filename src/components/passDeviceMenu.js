@@ -1,14 +1,17 @@
-import { finishMenuComponent } from "./finishMenu";
+import { pageComponent } from "./page";
 
 export const passDeviceMenu = (() => {
-  const setUp = () => {
-    const passDeviceMenu = document.createElement("div");
+  let myPlayer = null;
+
+  const setUp = (player) => {
+    myPlayer = player;
+
+    const passDeviceMenu = document.createElement("main");
     const button = document.createElement("button");
 
     passDeviceMenu.classList.add("pass-device-menu");
-    passDeviceMenu.classList.add("hide");
 
-    button.textContent = "Passed";
+    button.textContent = "Next Turn";
     button.addEventListener("click", hidePassDeviceMenu);
 
     passDeviceMenu.appendChild(button);
@@ -17,8 +20,8 @@ export const passDeviceMenu = (() => {
   };
 
   function hidePassDeviceMenu() {
-    const passDeviceMenu = document.querySelector(".pass-device-menu");
-    passDeviceMenu.classList.add("hide");
+    if (!Array.isArray(myPlayer)) pageComponent.showChooseShipsMenu(myPlayer);
+    else pageComponent.showGameBoards(myPlayer);
   }
 
   return { setUp };

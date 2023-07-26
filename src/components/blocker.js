@@ -1,9 +1,9 @@
 export const blockerComponent = (() => {
-  const setUp = (isBot) => {
+  const setUp = (isTurn) => {
     const blocker = document.createElement("div");
     blocker.classList.add("blocker");
 
-    if (isBot) blocker.classList.add("hide");
+    if (!isTurn) blocker.classList.add("hide");
 
     return blocker;
   };

@@ -16,41 +16,55 @@ export const gameBoardComponent = (() => {
     let isShip = false;
     for (let row = 0; row < 10; row++) {
       for (let column = 0; column < 10; column++) {
-        if (typeof myBoard.board[row][column] == "object") isShip = true;
-        gameBoard.appendChild(createCell(row, column, isShip));
-        isShip = false;
+        const element = myBoard.board[row][column];
+        gameBoard.appendChild(createCell(row, column, element));
       }
     }
 
-    gameBoard.appendChild(blockerComponent.setUp(player.number === 1));
+    gameBoard.appendChild(blockerComponent.setUp(myPlayer.isTurn));
 
     return gameBoard;
   };
 
-  function createCell(row, column, isShip) {
+  function createCell(row, column, element) {
     const cell = document.createElement("div");
     cell.classList.add("cell");
     cell.dataset.row = row;
     cell.dataset.column = column;
 
-    cell.addEventListener("click", attack);
-
-    if (myPlayer.type !== "bot" && isShip && myPlayer.number === 1) {
+    if (
+      myPlayer.type !== "bot" &&
+      typeof element === "object" &&
+      !myPlayer.isTurn
+    ) {
       cell.classList.add("ship");
-    } else if (myPlayer.type !== "bot" && isShip && myPlayer.number === 0) {
+    } else if (
+      myPlayer.type !== "bot" &&
+      typeof element === "object" &&
+      myPlayer.isTurn
+    ) {
       cell.classList.add("ship");
       cell.classList.add("color");
     }
+
+    if (element === -1) {
+      cell.classList.add("miss");
+      cell.style.cursor = "default";
+    } else if (element === 1) {
+      cell.classList.add("hit");
+      cell.style.cursor = "default";
+    } else {
+      cell.addEventListener("click", attack);
+    }
+
     return cell;
   }
 
   function attack(event) {
     const target = event.target;
-    GameLoop.attack(
-      target.parentNode.dataset.player,
-      target.dataset.row,
-      target.dataset.column
-    );
+    const enemy = target.parentNode.dataset.player;
+
+    GameLoop.attack(enemy, target.dataset.row, target.dataset.column);
   }
 
   const changeCellColor = (isHit, number, row, column) => {
