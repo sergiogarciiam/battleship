@@ -1,5 +1,12 @@
 /* GENERAL */
 :root {
+  --background-color: #43789e;
+  --main-color: #fff;
+  --second-color: #222;
+
+  --ship: blue;
+  --hit: red;
+  --miss: gray;
 }
 
 * {
@@ -9,8 +16,8 @@
 
 body {
   padding: 20px;
-  background: #43789e;
-  color: white;
+  background: var(--background-color);
+  color: var(--main-color);
 }
 
 .page {
@@ -28,8 +35,8 @@ body {
 }
 
 button {
-  background-color: white;
-  color: #222;
+  background-color: var(--main-color);
+  color: var(--second-color);
 
   font-size: 1.1rem;
   font-weight: bold;
@@ -56,4 +63,12 @@ button:hover {
 
 .hide {
   display: none;
+}
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 1000px) {
+  .title {
+    font-size: 3rem;
+  }
 }

@@ -16,9 +16,20 @@ export const mainMenu = (() => {
 
     mainMenu.appendChild(singlePlayerButton);
     mainMenu.appendChild(multiPlayerButton);
+    mainMenu.appendChild(createLink());
 
     return mainMenu;
   };
+
+  function createLink() {
+    const link = document.createElement("a");
+
+    link.textContent = "Sergio García";
+    link.href = "https://github.com/sergiogarciiam";
+    link.target = "__blank";
+
+    return link;
+  }
 
   function startSingleGame() {
     GameLoop.setUpPlayers("human", "bot");

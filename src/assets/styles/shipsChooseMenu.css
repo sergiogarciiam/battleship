@@ -8,7 +8,27 @@
 .ship-position {
   position: absolute;
   display: none;
-  background-color: blue;
+  background-color: var(--ship);
+}
+
+.gameBoard {
+  position: relative;
+  display: flex;
+  width: 550px;
+  flex-wrap: wrap;
+}
+
+.cell {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--second-color);
+  cursor: pointer;
+  transition: transform 300ms;
+}
+
+.cell:hover {
+  transform: scale(1.1);
 }
 
 .cell:hover > .ship-position {
@@ -61,4 +81,63 @@
 
 .destroyer.vertical {
   height: 109px;
+}
+
+@media screen and (max-width: 600px) {
+  .gameBoard {
+    width: 300px;
+  }
+
+  .cell {
+    width: 28px;
+    height: 28px;
+  }
+
+  .horizontal {
+    height: 28px;
+  }
+
+  .vertical {
+    width: 28px;
+  }
+
+  .carrier.horizontal {
+    width: 149px;
+  }
+
+  .carrier.vertical {
+    height: 149px;
+  }
+
+  .battleship.horizontal {
+    width: 121px;
+  }
+
+  .battleship.vertical {
+    height: 121px;
+  }
+
+  .cruiser.horizontal {
+    width: 93px;
+  }
+
+  .cruiser.vertical {
+    height: 93px;
+  }
+
+  .submarine.horizontal {
+    width: 93px;
+  }
+
+  .submarine.vertical {
+    height: 93px;
+  }
+
+  .destroyer.horizontal {
+    width: 65px;
+  }
+
+  .destroyer.vertical {
+    height: 65px;
+  }
 }

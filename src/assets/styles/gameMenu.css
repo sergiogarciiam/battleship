@@ -1,0 +1,23 @@
+.gameboards-container {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+
+.color {
+  background-color: var(--ship);
+}
+
+.hit {
+  background-color: var(--hit);
+}
+
+.miss {
+  background-color: var(--miss);
+}
+
+@media screen and (max-width: 1200px) {
+  .gameboards-container {
+    flex-direction: column;
+  }
+}

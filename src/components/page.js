@@ -1,8 +1,9 @@
 import { finishMenuComponent } from "./finishMenu";
-import { gameBoardComponent } from "./gameboard";
+import { gameMenu } from "./gameMenu";
 import { mainMenu } from "./mainMenu";
 import { passDeviceMenu } from "./passDeviceMenu";
 import { shipsChooseMenu } from "./shipsChooseMenu";
+import { surrenderMenuComponent } from "./surrenderMenu";
 
 export const pageComponent = (() => {
   let page = null;
@@ -20,6 +21,7 @@ export const pageComponent = (() => {
     page.appendChild(title);
     page.appendChild(mainMenu.setUp());
     page.appendChild(finishMenuComponent.setUp());
+    page.appendChild(surrenderMenuComponent.setUp());
 
     return page;
   };
@@ -49,22 +51,24 @@ export const pageComponent = (() => {
   };
 
   const showGameBoards = (players) => {
+    let main = document.querySelector("main");
+    main.remove();
+
     const playerTurn = players[0].isTurn
       ? players[0].number
       : players[1].number;
 
-    let main = document.querySelector("main");
-    main.remove();
-
     title.textContent = `Player ${playerTurn + 1}: choose one cell`;
 
-    main = document.createElement("main");
-    main.classList.add("gameboards-container");
+    page.appendChild(gameMenu.setUp(players));
+  };
 
-    main.appendChild(gameBoardComponent.setUp(players[0]));
-    main.appendChild(gameBoardComponent.setUp(players[1]));
+  const showSurrenderMenu = () => {
+    const blockers = document.querySelectorAll(".blocker");
+    const surrenderMenu = document.querySelector(".surrender-menu");
 
-    page.appendChild(main);
+    blockers.forEach((blocker) => blocker.classList.remove("hide"));
+    surrenderMenu.classList.remove("hide");
   };
 
   const showFinishMenu = () => {
@@ -81,6 +85,7 @@ export const pageComponent = (() => {
     showChooseShipsMenu,
     showPassDeviceMenu,
     showGameBoards,
+    showSurrenderMenu,
     showFinishMenu,
   };
 })();
