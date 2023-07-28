@@ -1,3 +1,10 @@
+.game-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
 .gameboards-container {
   display: flex;
   justify-content: center;
@@ -16,6 +23,7 @@
   background-color: var(--miss);
 }
 
+/* RESPONSIVE */
 @media screen and (max-width: 1200px) {
   .gameboards-container {
     flex-direction: column;

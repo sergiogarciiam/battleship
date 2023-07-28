@@ -1,17 +1,16 @@
 import { GameLoop } from "../controllers/gameLoop";
 
 export const shipsChooseMenu = (() => {
-  let myPlayer = null;
-  let actualShip = "";
-  let orientation = "";
+  let currentPlayer = null;
+  let currentShip = "";
+  let currentOrientation = "horizontal";
 
   const setUp = (player) => {
+    currentPlayer = player;
+    currentShip = "carrier";
+
     const shipsChooseMenu = document.createElement("main");
     shipsChooseMenu.classList.add("ships-choose-menu");
-
-    myPlayer = player;
-    actualShip = "carrier";
-    orientation = "horizontal";
 
     shipsChooseMenu.appendChild(createButton());
     shipsChooseMenu.appendChild(createGameBoard());
@@ -19,44 +18,40 @@ export const shipsChooseMenu = (() => {
     return shipsChooseMenu;
   };
 
-  function createButton() {
+  // PRIVATE FUNCTIONS
+  const createButton = () => {
     const button = document.createElement("button");
     button.textContent = "Rotate";
     button.addEventListener("click", rotateShip);
     return button;
-  }
+  };
 
-  function createGameBoard() {
+  const createGameBoard = () => {
     const gameBoard = document.createElement("div");
-    const myBoard = myPlayer.board.board;
+    const playerBoard = currentPlayer.board.board;
     gameBoard.classList.add("gameBoard");
 
-    let isShip = false;
     for (let row = 0; row < 10; row++) {
       for (let column = 0; column < 10; column++) {
-        if (typeof myBoard[row][column] == "object") isShip = true;
+        const isShip = typeof playerBoard[row][column] === "object";
         gameBoard.appendChild(createCell(row, column, isShip));
-        isShip = false;
       }
     }
 
     return gameBoard;
-  }
+  };
 
-  function createCell(row, column, isShip) {
+  const createCell = (row, column, isShip) => {
     const cell = document.createElement("div");
     const shipPosition = document.createElement("div");
 
     cell.classList.add("cell");
-
     shipPosition.classList.add("ship-position");
-
-    shipPosition.classList.add(orientation);
-    shipPosition.classList.add(actualShip);
+    shipPosition.classList.add(currentOrientation);
+    shipPosition.classList.add(currentShip);
 
     cell.dataset.row = row;
     cell.dataset.column = column;
-
     cell.addEventListener("click", addShip);
 
     cell.appendChild(shipPosition);
@@ -67,51 +62,59 @@ export const shipsChooseMenu = (() => {
     }
 
     return cell;
-  }
+  };
 
-  function addShip(e) {
+  const addShip = (e) => {
     const shipsChooseMenu = document.querySelector(".ships-choose-menu");
     const row = +e.target.parentNode.dataset.row;
     const column = +e.target.parentNode.dataset.column;
 
-    const isPlaced = myPlayer.board.placeShip(
+    const isPlaced = currentPlayer.board.placeShip(
       row,
       column,
-      actualShip,
-      orientation === "horizontal"
+      currentShip,
+      currentOrientation === "horizontal"
     );
 
     if (!isPlaced) return;
 
-    actualShip =
-      actualShip === "carrier"
-        ? "battleship"
-        : actualShip === "battleship"
-        ? "cruiser"
-        : actualShip === "cruiser"
-        ? "submarine"
-        : actualShip === "submarine"
-        ? "destroyer"
-        : "";
+    switch (currentShip) {
+      case "carrier":
+        currentShip = "battleship";
+        break;
+      case "battleship":
+        currentShip = "cruiser";
+        break;
+      case "cruiser":
+        currentShip = "submarine";
+        break;
+      case "submarine":
+        currentShip = "destroyer";
+        break;
+      case "destroyer":
+        currentShip = "";
+        break;
+    }
 
-    if (actualShip === "") {
-      GameLoop.setUpShipsChooseMenu(myPlayer.number + 1);
+    if (currentShip === "") {
+      GameLoop.setUpShipsChooseMenu(currentPlayer.number + 1);
       return;
     }
 
     shipsChooseMenu.childNodes[1].remove();
     shipsChooseMenu.appendChild(createGameBoard());
-  }
+  };
 
-  function rotateShip() {
+  const rotateShip = () => {
     const shipsPosition = document.querySelectorAll(".ship-position");
     shipsPosition.forEach((ship) => {
       ship.classList.toggle("vertical");
       ship.classList.toggle("horizontal");
     });
 
-    orientation = orientation === "horizontal" ? "vertical" : "horizontal";
-  }
+    currentOrientation =
+      currentOrientation === "horizontal" ? "vertical" : "horizontal";
+  };
 
   return { setUp };
 })();

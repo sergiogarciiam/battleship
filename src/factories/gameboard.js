@@ -68,6 +68,7 @@ export class GameBoard {
     }
   }
 
+  // PRIVATE FUNCTIONS
   deepCopyBoard() {
     const numRows = this.board.length;
     const numCols = this.board[0].length;

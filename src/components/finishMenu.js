@@ -1,7 +1,7 @@
 import { GameLoop } from "../controllers/gameLoop";
 import { pageComponent } from "./page";
 
-export const finishMenuComponent = (() => {
+export const finishMenu = (() => {
   const setUp = () => {
     const finishMenu = document.createElement("div");
     const title = document.createElement("h3");
@@ -25,16 +25,17 @@ export const finishMenuComponent = (() => {
     return finishMenu;
   };
 
-  function playAgain(event) {
+  // PRIVATE FUNCTIONS
+  const playAgain = (event) => {
     event.target.parentNode.classList.add("hide");
     GameLoop.resetPlayers();
     GameLoop.setUpShipsChooseMenu();
-  }
+  };
 
-  function goBackMainMenu(event) {
+  const goBackMainMenu = (event) => {
     event.target.parentNode.classList.add("hide");
     pageComponent.showMainMenu();
-  }
+  };
 
   return { setUp };
 })();

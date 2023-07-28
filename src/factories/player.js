@@ -32,6 +32,7 @@ export class Player {
     return boardPossibleHits[randomOption];
   }
 
+  // PRIVATE FUNCTIONS
   getHorizontal() {
     return Math.random() < 0.5;
   }

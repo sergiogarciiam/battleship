@@ -21,7 +21,8 @@ export const mainMenu = (() => {
     return mainMenu;
   };
 
-  function createLink() {
+  // PRIVATE FUNCTIONS
+  const createLink = () => {
     const link = document.createElement("a");
 
     link.textContent = "Sergio García";
@@ -29,15 +30,15 @@ export const mainMenu = (() => {
     link.target = "__blank";
 
     return link;
-  }
+  };
 
-  function startSingleGame() {
-    GameLoop.setUpPlayers("human", "bot");
+  const startSingleGame = () => {
+    GameLoop.initializePlayers("human", "bot");
     GameLoop.setUpShipsChooseMenu();
-  }
+  };
 
   function startMultiplayerGame() {
-    GameLoop.setUpPlayers("human", "human");
+    GameLoop.initializePlayers("human", "human");
     GameLoop.setUpShipsChooseMenu();
   }
 

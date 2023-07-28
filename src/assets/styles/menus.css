@@ -39,6 +39,7 @@
   margin-bottom: 50px;
 }
 
+/* RESPONSIVE */
 @media screen and (max-width: 600px) {
   .surrender-menu,
   .finish-menu {

@@ -1,10 +1,10 @@
 import { pageComponent } from "./page";
 
 export const passDeviceMenu = (() => {
-  let myPlayer = null;
+  let currentPlayer = null;
 
   const setUp = (player) => {
-    myPlayer = player;
+    currentPlayer = player;
 
     const passDeviceMenu = document.createElement("main");
     const button = document.createElement("button");
@@ -19,10 +19,13 @@ export const passDeviceMenu = (() => {
     return passDeviceMenu;
   };
 
-  function hidePassDeviceMenu() {
-    if (!Array.isArray(myPlayer)) pageComponent.showChooseShipsMenu(myPlayer);
-    else pageComponent.showGameBoards(myPlayer);
-  }
+  const hidePassDeviceMenu = () => {
+    if (Array.isArray(currentPlayer)) {
+      pageComponent.showGameBoards(currentPlayer);
+    } else {
+      pageComponent.showChooseShipsMenu(currentPlayer);
+    }
+  };
 
   return { setUp };
 })();

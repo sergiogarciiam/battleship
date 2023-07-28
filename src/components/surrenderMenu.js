@@ -1,6 +1,6 @@
 import { pageComponent } from "./page";
 
-export const surrenderMenuComponent = (() => {
+export const surrenderMenu = (() => {
   const setUp = () => {
     const surrenderMenu = document.createElement("div");
     const title = document.createElement("h3");
@@ -24,14 +24,15 @@ export const surrenderMenuComponent = (() => {
     return surrenderMenu;
   };
 
-  function hideMenu(event) {
+  // PRIVATE FUNCTIONS
+  const hideMenu = (event) => {
     event.target.parentNode.classList.add("hide");
-  }
+  };
 
-  function goBackMainMenu(event) {
+  const goBackMainMenu = (event) => {
     event.target.parentNode.classList.add("hide");
     pageComponent.showMainMenu();
-  }
+  };
 
   return { setUp };
 })();

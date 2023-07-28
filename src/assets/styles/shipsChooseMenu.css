@@ -83,6 +83,7 @@
   height: 109px;
 }
 
+/* RESPONSIVE */
 @media screen and (max-width: 600px) {
   .gameBoard {
     width: 300px;
