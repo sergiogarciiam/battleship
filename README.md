@@ -33,9 +33,7 @@ This project is from [The Odin Project](https://www.theodinproject.com/lessons/n
 
 ![game in computer](./src/assets/images/game-computer.png)
 
-#### Responsive
-
-#### Responsive
+### Responsive
 
 <p display="flex">
   <img src="./src/assets/images/game-mobile.png" height="500" />
