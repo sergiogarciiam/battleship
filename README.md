@@ -25,11 +25,14 @@ This project is from [The Odin Project](https://www.theodinproject.com/lessons/n
 
 ## Screenshot
 
-### Main menu
+### Figma Design
+
+![figma design](./src/assets/images/figma-design.png)
+
+
+### Final Game
 
 ![menu in computer](./src/assets/images/menu-computer.png)
-
-### Game in action
 
 ![game in computer](./src/assets/images/game-computer.png)
 
