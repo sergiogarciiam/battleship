@@ -17,6 +17,7 @@ export class Player {
             row,
             column
           );
+
           if (betterCoordinates !== null) return betterCoordinates;
         } else if (
           enemyBoard[row][column] !== 1 &&

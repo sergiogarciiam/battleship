@@ -1,5 +1,6 @@
 export class Ship {
   constructor(type) {
+    this.type = type;
     this.length = this.getLengthFromType(type);
     this.hits = 0;
     this.isSunk = false;

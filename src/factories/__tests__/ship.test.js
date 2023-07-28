@@ -8,6 +8,7 @@ describe("carrier", () => {
   });
 
   test("should have the correct initial properties", () => {
+    expect(ship.type).toBe("carrier");
     expect(ship.length).toBe(5);
     expect(ship.hits).toBe(0);
     expect(ship.isSunk).toBe(false);
@@ -44,6 +45,7 @@ describe("battleship", () => {
   });
 
   test("should have the correct initial properties", () => {
+    expect(ship.type).toBe("battleship");
     expect(ship.length).toBe(4);
     expect(ship.hits).toBe(0);
     expect(ship.isSunk).toBe(false);
@@ -78,6 +80,7 @@ describe("cruiser", () => {
   });
 
   test("should have the correct initial properties", () => {
+    expect(ship.type).toBe("cruiser");
     expect(ship.length).toBe(3);
     expect(ship.hits).toBe(0);
     expect(ship.isSunk).toBe(false);
@@ -111,6 +114,7 @@ describe("submarine", () => {
   });
 
   test("should have the correct initial properties", () => {
+    expect(ship.type).toBe("submarine");
     expect(ship.length).toBe(3);
     expect(ship.hits).toBe(0);
     expect(ship.isSunk).toBe(false);
@@ -144,6 +148,7 @@ describe("destroyer", () => {
   });
 
   test("should have the correct initial properties", () => {
+    expect(ship.type).toBe("destroyer");
     expect(ship.length).toBe(2);
     expect(ship.hits).toBe(0);
     expect(ship.isSunk).toBe(false);
