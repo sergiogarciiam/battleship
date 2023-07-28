@@ -44,43 +44,43 @@
 }
 
 .carrier.horizontal {
-  width: 259px;
+  width: 239px;
 }
 
 .carrier.vertical {
-  height: 259px;
+  height: 239px;
 }
 
 .battleship.horizontal {
-  width: 209px;
+  width: 189px;
 }
 
 .battleship.vertical {
-  height: 209px;
+  height: 189px;
 }
 
 .cruiser.horizontal {
-  width: 159px;
+  width: 145px;
 }
 
 .cruiser.vertical {
-  height: 159px;
+  height: 145px;
 }
 
 .submarine.horizontal {
-  width: 159px;
+  width: 145px;
 }
 
 .submarine.vertical {
-  height: 159px;
+  height: 145px;
 }
 
 .destroyer.horizontal {
-  width: 109px;
+  width: 95px;
 }
 
 .destroyer.vertical {
-  height: 109px;
+  height: 95px;
 }
 
 /* RESPONSIVE */
@@ -103,42 +103,42 @@
   }
 
   .carrier.horizontal {
-    width: 149px;
+    width: 135px;
   }
 
   .carrier.vertical {
-    height: 149px;
+    height: 135px;
   }
 
   .battleship.horizontal {
-    width: 121px;
+    width: 110px;
   }
 
   .battleship.vertical {
-    height: 121px;
+    height: 110px;
   }
 
   .cruiser.horizontal {
-    width: 93px;
+    width: 83px;
   }
 
   .cruiser.vertical {
-    height: 93px;
+    height: 83px;
   }
 
   .submarine.horizontal {
-    width: 93px;
+    width: 83px;
   }
 
   .submarine.vertical {
-    height: 93px;
+    height: 83px;
   }
 
   .destroyer.horizontal {
-    width: 65px;
+    width: 55px;
   }
 
   .destroyer.vertical {
-    height: 65px;
+    height: 55px;
   }
 }
