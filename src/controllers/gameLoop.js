@@ -26,10 +26,9 @@ export const GameLoop = (() => {
 
     if (currentPlayerNumber === 2) {
       pageComponent.showGameBoards(players);
-      return;
-    }
-
-    if (currentPlayer.type === "human") {
+    } else if (currentPlayerNumber === 0) {
+      pageComponent.showChooseShipsMenu(currentPlayer);
+    } else if (currentPlayer.type === "human") {
       pageComponent.showPassDeviceMenu(currentPlayer);
     } else {
       currentPlayer.board.generateRandomBoard();
@@ -53,12 +52,14 @@ export const GameLoop = (() => {
   };
 
   // PRIVATE FUNCTIONS
-
   const nextTurn = (enemy) => {
     if (players[1].type === "human") {
       const board = document.querySelector(`[data-player="${enemy}"]`);
       const blocker = board.querySelector(".blocker");
+      const surrenderMenu = document.querySelector(".surrender-menu");
+
       blocker.classList.remove("hide");
+      surrenderMenu.classList.add("hide");
 
       players[0].isTurn = !players[0].isTurn;
       players[1].isTurn = !players[1].isTurn;

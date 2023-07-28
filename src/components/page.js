@@ -1,3 +1,4 @@
+import { blockerComponent } from "./blocker";
 import { finishMenu } from "./finishMenu";
 import { gameMenu } from "./gameMenu";
 import { mainMenu } from "./mainMenu";
