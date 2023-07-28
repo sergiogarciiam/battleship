@@ -4,9 +4,9 @@
   --main-color: #fff;
   --second-color: #222;
 
-  --ship: blue;
-  --hit: red;
-  --miss: gray;
+  --ship: #439e49;
+  --hit: #9e4343;
+  --miss: #949494;
 }
 
 * {
@@ -16,8 +16,10 @@
 
 body {
   padding: 20px;
-  background: var(--background-color);
   color: var(--main-color);
+  height: 100%;
+  background: linear-gradient(90deg, #43789e, black);
+  background-size: 200% 200%;
 }
 
 .page {
