@@ -20,5 +20,8 @@
     "jest": "^29.6.1",
     "style-loader": "^3.3.3",
     "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "webpack": "^5.88.2"
   }
 }

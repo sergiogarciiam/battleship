@@ -10,7 +10,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "Battleship",
-      favicon: "./src/assets/images/favicon.ico",
+      favicon: "src/assets/images/favicon.ico",
     }),
   ],
   output: {
